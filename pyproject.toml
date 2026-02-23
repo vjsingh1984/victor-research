@@ -60,6 +60,9 @@ research = "victor_research.assistant:ResearchAssistant"
 [tool.setuptools]
 packages = [
     "victor_research",
+    "victor_research.rl",
+    "victor_research.teams",
+    "victor_research.workflows",
 ]
 
 [tool.black]
