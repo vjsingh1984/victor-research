@@ -29,3 +29,20 @@ __all__ = [
     "ResearchCapabilityProvider",  # Capability provider
     "ResearchToolDependencyProvider",  # Now uses canonical provider
 ]
+
+# Enhanced features with new coordinators
+from victor_research.safety_enhanced import (
+    ResearchSafetyRules,
+    EnhancedResearchSafetyExtension,
+)
+from victor_research.conversation_enhanced import (
+    ResearchContext,
+    EnhancedResearchConversationManager,
+)
+
+__all__.extend([
+    "ResearchSafetyRules",
+    "EnhancedResearchSafetyExtension",
+    "ResearchContext",
+    "EnhancedResearchConversationManager",
+])
