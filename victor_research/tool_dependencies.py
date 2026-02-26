@@ -154,6 +154,7 @@ except Exception:
 
 __all__ = [
     "ResearchToolDependencyProvider",
+    "get_provider",
     # Legacy constants for backward compatibility
     "RESEARCH_TOOL_DEPENDENCIES",
     "RESEARCH_TOOL_TRANSITIONS",
@@ -162,3 +163,31 @@ __all__ = [
     "RESEARCH_REQUIRED_TOOLS",
     "RESEARCH_OPTIONAL_TOOLS",
 ]
+
+
+# =============================================================================
+# Entry Point Provider Factory
+# =============================================================================
+
+
+def get_provider() -> ResearchToolDependencyProvider:
+    """Entry point provider factory for research vertical.
+
+    This function is registered as an entry point in pyproject.toml:
+        [project.entry-points."victor.tool_dependencies"]
+        research = "victor_research.tool_dependencies:get_provider"
+
+    Returns:
+        A configured tool dependency provider for the research vertical.
+
+    Example:
+        # Framework usage via entry points:
+        from importlib.metadata import entry_points
+        eps = entry_points(group="victor.tool_dependencies")
+        for ep in eps:
+            if ep.name == "research":
+                provider_factory = ep.load()
+                provider = provider_factory()
+                deps = provider.get_dependencies()
+    """
+    return ResearchToolDependencyProvider()

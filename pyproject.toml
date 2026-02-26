@@ -57,6 +57,12 @@ Issues = "https://github.com/vjsingh1984/victor-research/issues"
 [project.entry-points."victor.verticals"]
 research = "victor_research.assistant:ResearchAssistant"
 
+[project.entry-points."victor.tool_dependencies"]
+research = "victor_research.tool_dependencies:get_provider"
+
+[project.entry-points."victor.safety_rules"]
+research = "victor_research.safety:create_all_research_safety_rules"
+
 [tool.setuptools]
 packages = [
     "victor_research",
