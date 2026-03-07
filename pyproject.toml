@@ -63,6 +63,9 @@ research = "victor_research.tool_dependencies:get_provider"
 [project.entry-points."victor.safety_rules"]
 research = "victor_research.safety:create_all_research_safety_rules"
 
+[project.entry-points."victor.framework.teams.providers"]
+research = "victor_research.teams:ResearchTeamSpecProvider"
+
 [tool.setuptools]
 packages = [
     "victor_research",
