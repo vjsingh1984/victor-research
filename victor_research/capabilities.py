@@ -27,7 +27,7 @@ Example:
     # Register capabilities with loader
     from victor.framework import CapabilityLoader
     loader = CapabilityLoader()
-    loader.load_from_module("victor.research.capabilities")
+    loader.load_from_module("victor_research.capabilities")
 
     # Or use directly
     from victor_research.capabilities import (
@@ -747,7 +747,7 @@ def create_research_capability_loader() -> Any:
             capability=entry.capability,
             handler=entry.handler,
             getter_handler=entry.getter_handler,
-            source_module="victor.research.capabilities",
+            source_module="victor_research.capabilities",
         )
 
     return loader

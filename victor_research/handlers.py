@@ -19,7 +19,7 @@ Domain-specific handlers for research workflows:
 - citation_formatter: Reference formatting
 
 Usage:
-    from victor.research import handlers
+    from victor_research import handlers
     handlers.register_handlers()
 
     # In YAML workflow:

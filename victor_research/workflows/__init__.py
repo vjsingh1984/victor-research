@@ -106,7 +106,7 @@ class ResearchWorkflowProvider(BaseYAMLWorkflowProvider):
         Returns:
             Module path string for CONDITIONS and TRANSFORMS dictionaries
         """
-        return "victor.research.escape_hatches"
+        return "victor_research.escape_hatches"
 
     def _get_capability_provider_module(self) -> Optional[str]:
         """Return the module path for the research capability provider.
@@ -114,7 +114,7 @@ class ResearchWorkflowProvider(BaseYAMLWorkflowProvider):
         Returns:
             Module path string for ResearchCapabilityProvider
         """
-        return "victor.research.capabilities"
+        return "victor_research.capabilities"
 
 
 __all__ = [
