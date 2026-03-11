@@ -66,6 +66,13 @@ research = "victor_research.safety:create_all_research_safety_rules"
 [project.entry-points."victor.framework.teams.providers"]
 research = "victor_research.teams:ResearchTeamSpecProvider"
 
+# NEW: Victor SDK Protocol implementations
+[project.entry-points."victor.sdk.protocols"]
+research-tools = "victor_research.protocols:ResearchToolProvider"
+research-safety = "victor_research.protocols:ResearchSafetyProvider"
+research-prompts = "victor_research.protocols:ResearchPromptProvider"
+research-workflows = "victor_research.protocols:ResearchWorkflowProvider"
+
 [tool.setuptools]
 packages = [
     "victor_research",
