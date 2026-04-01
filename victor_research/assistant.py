@@ -6,6 +6,7 @@ Competitive positioning: Perplexity AI, Google Gemini Deep Research, ChatGPT Bro
 from typing import Any, Dict, List, Optional
 
 from victor.core.verticals.base import StageDefinition, VerticalBase
+from victor.core.verticals.registration import register_vertical
 from victor.core.verticals.protocols import (
     ModeConfigProviderProtocol,
     PromptContributorProtocol,
@@ -18,6 +19,16 @@ from victor.core.verticals.protocols import (
 from victor.framework.capabilities import FileOperationsCapability
 
 
+@register_vertical(
+    name="research",
+    version="1.0.0",
+    min_framework_version=">=0.6.0",
+    canonicalize_tool_names=True,
+    tool_dependency_strategy="auto",
+    strict_mode=False,
+    load_priority=60,
+    plugin_namespace="default",
+)
 class ResearchAssistant(VerticalBase):
     """Research assistant for web research, fact-checking, and synthesis.
 
