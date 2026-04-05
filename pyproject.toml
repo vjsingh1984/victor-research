@@ -56,7 +56,7 @@ Repository = "https://github.com/vjsingh1984/victor-research"
 Documentation = "https://docs.victor.dev/verticals/research"
 Issues = "https://github.com/vjsingh1984/victor-research/issues"
 
-[project.entry-points."victor.verticals"]
+[project.entry-points."victor.plugins"]
 research = "victor_research.assistant:ResearchAssistant"
 
 [project.entry-points."victor.tool_dependencies"]
