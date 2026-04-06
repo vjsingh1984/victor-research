@@ -6,7 +6,7 @@ for source credibility and content warnings, extending with research-specific pa
 
 from typing import Dict, List, Tuple
 
-from victor.core.verticals.protocols import SafetyExtensionProtocol, SafetyPattern
+from victor_sdk.verticals import SafetyExtensionProtocol, SafetyPattern
 
 # Import framework safety patterns (DRY principle)
 from victor.security.safety.source_credibility import (

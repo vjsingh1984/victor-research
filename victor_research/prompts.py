@@ -2,7 +2,7 @@
 
 from typing import Dict, Optional
 
-from victor.core.verticals.protocols import PromptContributorProtocol, TaskTypeHint
+from victor_sdk.verticals import PromptContributorProtocol, TaskTypeHint
 
 # Research-specific task type hints
 RESEARCH_TASK_TYPE_HINTS: Dict[str, TaskTypeHint] = {

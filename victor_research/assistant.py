@@ -6,14 +6,7 @@ Competitive positioning: Perplexity AI, Google Gemini Deep Research, ChatGPT Bro
 from typing import Any, Dict, List, Optional
 
 from victor.core.verticals.base import StageDefinition, VerticalBase
-from victor.core.verticals.registration import register_vertical
-from victor.core.verticals.protocols import (
-    ModeConfigProviderProtocol,
-    PromptContributorProtocol,
-    SafetyExtensionProtocol,
-    TieredToolConfig,
-    ToolDependencyProviderProtocol,
-)
+from victor_sdk.verticals import register_vertical
 
 # Phase 3: Import framework capabilities
 from victor.framework.capabilities import FileOperationsCapability

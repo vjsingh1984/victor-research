@@ -57,13 +57,28 @@ Documentation = "https://docs.victor.dev/verticals/research"
 Issues = "https://github.com/vjsingh1984/victor-research/issues"
 
 [project.entry-points."victor.plugins"]
-research = "victor_research.assistant:ResearchAssistant"
+research = "victor_research.plugin:plugin"
 
 [project.entry-points."victor.tool_dependencies"]
 research = "victor_research.tool_dependencies:get_provider"
 
 [project.entry-points."victor.safety_rules"]
 research = "victor_research.safety:create_all_research_safety_rules"
+
+[project.entry-points."victor.prompt_contributors"]
+research = "victor_research.prompts:ResearchPromptContributor"
+
+[project.entry-points."victor.mode_configs"]
+research = "victor_research.mode_config:ResearchModeConfigProvider"
+
+[project.entry-points."victor.workflow_providers"]
+research = "victor_research.workflows:ResearchWorkflowProvider"
+
+[project.entry-points."victor.capability_providers"]
+research = "victor_research.capabilities:ResearchCapabilityProvider"
+
+[project.entry-points."victor.team_spec_providers"]
+research = "victor_research.teams:ResearchTeamSpecProvider"
 
 [project.entry-points."victor.framework.teams.providers"]
 research = "victor_research.teams:ResearchTeamSpecProvider"

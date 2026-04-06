@@ -14,6 +14,7 @@ from victor_research.prompts import ResearchPromptContributor
 from victor_research.mode_config import ResearchModeConfigProvider
 from victor_research.safety import ResearchSafetyExtension
 from victor_research.capabilities import ResearchCapabilityProvider
+from victor_research.plugin import ResearchPlugin, plugin
 
 # Import canonical tool dependency provider instead of deprecated class
 from victor.core.tool_dependency_loader import create_vertical_tool_dependency_provider
@@ -28,6 +29,8 @@ __all__ = [
     "ResearchSafetyExtension",
     "ResearchCapabilityProvider",  # Capability provider
     "ResearchToolDependencyProvider",  # Now uses canonical provider
+    "ResearchPlugin",
+    "plugin",
 ]
 
 # Enhanced features with new coordinators
