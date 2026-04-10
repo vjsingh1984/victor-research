@@ -6,8 +6,6 @@ from typing import Any, Dict, Optional
 
 from victor_sdk import PluginContext, VictorPlugin
 
-from victor_research.assistant import ResearchAssistant
-
 
 class ResearchPlugin(VictorPlugin):
     """VictorPlugin adapter for the research vertical package."""
@@ -17,6 +15,8 @@ class ResearchPlugin(VictorPlugin):
         return "research"
 
     def register(self, context: PluginContext) -> None:
+        from victor_research.assistant import ResearchAssistant
+
         context.register_vertical(ResearchAssistant)
 
     def get_cli_app(self) -> Optional[Any]:
@@ -38,7 +38,7 @@ class ResearchPlugin(VictorPlugin):
         return {
             "healthy": True,
             "vertical": "research",
-            "vertical_class": ResearchAssistant.__name__,
+            "vertical_class": "ResearchAssistant",
         }
 
 
