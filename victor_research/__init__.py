@@ -43,9 +43,9 @@ _EXPORTS = {
 
 def __getattr__(name: str) -> Any:
     if name == "ResearchToolDependencyProvider":
-        from victor.framework.extensions import create_vertical_tool_dependency_provider
+        from victor_research.tool_dependencies import get_provider
 
-        return create_vertical_tool_dependency_provider("research")
+        return get_provider()
 
     target = _EXPORTS.get(name)
     if target is None:
