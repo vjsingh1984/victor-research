@@ -152,6 +152,56 @@ def research_gap_repair_decision(ctx: Dict[str, Any]) -> str:
     return "proceed"
 
 
+def research_memory_reuse_decision(ctx: Dict[str, Any]) -> str:
+    """Decide whether the next repair step should reuse prior research traces.
+
+    Args:
+        ctx: Workflow context with keys:
+            - research_memory_trace (list): Prior validated search traces
+            - validated_sources (list): Current validated sources
+            - gaps (list): Current information gaps
+            - search_iterations (int): Automatic search iterations so far
+            - max_iterations (int): Maximum allowed automatic iterations
+
+    Returns:
+        "reuse_memory", "refresh", or "hitl"
+    """
+    search_iterations = int(ctx.get("search_iterations", 0) or 0)
+    max_iterations = int(ctx.get("max_iterations", 3) or 3)
+    research_memory_trace = ctx.get("research_memory_trace", []) or []
+    gaps = set(ctx.get("gaps", []) or [])
+    validated_sources = ctx.get("validated_sources", []) or []
+
+    if search_iterations >= max_iterations:
+        return "hitl"
+
+    if not research_memory_trace:
+        return "refresh"
+
+    last_trace = research_memory_trace[-1] if isinstance(research_memory_trace[-1], dict) else {}
+    prior_gaps = set(last_trace.get("gaps", []) or [])
+    prior_urls = set(last_trace.get("high_credibility_urls", []) or [])
+    prior_source_types = set(last_trace.get("source_types", []) or [])
+
+    current_urls = {
+        source.get("url")
+        for source in validated_sources
+        if isinstance(source, dict) and source.get("url")
+    }
+    duplicate_ratio = (
+        len(current_urls & prior_urls) / max(1, len(current_urls)) if current_urls else 0.0
+    )
+    repeated_gaps = gaps & prior_gaps
+
+    if duplicate_ratio >= 0.8 and search_iterations + 1 >= max_iterations:
+        return "hitl"
+
+    if repeated_gaps and (prior_urls or prior_source_types):
+        return "reuse_memory"
+
+    return "refresh"
+
+
 def source_credibility_check(ctx: Dict[str, Any]) -> str:
     """Assess overall source credibility.
 
@@ -379,6 +429,7 @@ CONDITIONS = {
     "source_coverage_check": source_coverage_check,
     "should_search_more": should_search_more,
     "research_gap_repair_decision": research_gap_repair_decision,
+    "research_memory_reuse_decision": research_memory_reuse_decision,
     "source_credibility_check": source_credibility_check,
     "fact_verdict": fact_verdict,
     "literature_relevance": literature_relevance,
@@ -396,6 +447,7 @@ __all__ = [
     "source_coverage_check",
     "should_search_more",
     "research_gap_repair_decision",
+    "research_memory_reuse_decision",
     "source_credibility_check",
     "fact_verdict",
     "literature_relevance",
