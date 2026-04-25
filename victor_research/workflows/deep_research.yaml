@@ -205,7 +205,47 @@ workflows:
           - What additional sources are needed?
         tool_budget: 10
         output: gaps
-        next: [request_more_research]
+        next: [repair_research_gaps]
+
+      - id: repair_research_gaps
+        type: condition
+        name: "Choose Research Gap Repair Path"
+        condition: "research_gap_repair_decision"
+        branches:
+          "search_more": targeted_followup_search_plan
+          "proceed": synthesize
+          "hitl": request_more_research
+
+      - id: targeted_followup_search_plan
+        type: agent
+        name: "Plan Targeted Follow-up Search"
+        role: planner
+        goal: |
+          Create a focused follow-up search plan that repairs the current research gaps.
+
+          Prioritize:
+          1. uncovered topics from the gap analysis
+          2. weak or low-credibility source areas
+          3. missing source diversity across academic, web, and code evidence
+
+          Output a tighter search plan for the next search iteration.
+        tool_budget: 10
+        llm_config:
+          temperature: 0.2
+        input_mapping:
+          gaps: gaps
+          prior_sources: validated_sources
+          prior_plan: search_plan
+        output: search_plan
+        next: [increment_search_iterations]
+
+      - id: increment_search_iterations
+        type: transform
+        name: "Increment Search Iterations"
+        transform: |
+          search_iterations = (search_iterations if 'search_iterations' in locals() else 0) + 1
+          max_iterations = max_iterations if 'max_iterations' in locals() else 3
+        next: [parallel_search]
 
       - id: request_more_research
         type: hitl
@@ -236,7 +276,7 @@ workflows:
         condition: "gap_decision"
         branches:
           "continue": synthesize
-          "search_more": parallel_search
+          "search_more": targeted_followup_search_plan
           "adjust": understand_query
 
       # =====================================================================

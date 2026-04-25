@@ -29,7 +29,7 @@ Example YAML usage:
 from __future__ import annotations
 
 import logging
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 logger = logging.getLogger(__name__)
 
@@ -99,6 +99,54 @@ def should_search_more(ctx: Dict[str, Any]) -> str:
 
     # Search more if significant gaps remain
     if len(gaps) > 2 and coverage_score < 0.6:
+        return "search_more"
+
+    return "proceed"
+
+
+def research_gap_repair_decision(ctx: Dict[str, Any]) -> str:
+    """Choose whether to continue automatic search repair or escalate to HITL.
+
+    Args:
+        ctx: Workflow context with keys:
+            - coverage_score (float): Current topic coverage
+            - gaps (list): Identified research gaps
+            - validated_sources (list): Sources with credibility/source_type metadata
+            - search_iterations (int): Automatic repair attempts
+            - max_iterations (int): Maximum automatic repair attempts
+
+    Returns:
+        "search_more", "proceed", or "hitl"
+    """
+    coverage_score = float(ctx.get("coverage_score", 0.0) or 0.0)
+    gaps = ctx.get("gaps", []) or []
+    validated_sources = ctx.get("validated_sources", []) or []
+    search_iterations = int(ctx.get("search_iterations", 0) or 0)
+    max_iterations = int(ctx.get("max_iterations", 3) or 3)
+
+    if coverage_score >= 0.75 and len(gaps) <= 1:
+        return "proceed"
+
+    source_types = {
+        source.get("source_type")
+        for source in validated_sources
+        if isinstance(source, dict) and source.get("source_type")
+    }
+    avg_credibility = (
+        sum(
+            source.get("credibility", 0.5)
+            for source in validated_sources
+            if isinstance(source, dict)
+        )
+        / len(validated_sources)
+        if validated_sources
+        else 0.0
+    )
+
+    if search_iterations >= max_iterations:
+        return "hitl"
+
+    if coverage_score < 0.7 or len(gaps) >= 2 or avg_credibility < 0.65 or len(source_types) < 2:
         return "search_more"
 
     return "proceed"
@@ -330,6 +378,7 @@ def format_bibliography(ctx: Dict[str, Any]) -> Dict[str, Any]:
 CONDITIONS = {
     "source_coverage_check": source_coverage_check,
     "should_search_more": should_search_more,
+    "research_gap_repair_decision": research_gap_repair_decision,
     "source_credibility_check": source_credibility_check,
     "fact_verdict": fact_verdict,
     "literature_relevance": literature_relevance,
@@ -346,6 +395,7 @@ __all__ = [
     # Conditions
     "source_coverage_check",
     "should_search_more",
+    "research_gap_repair_decision",
     "source_credibility_check",
     "fact_verdict",
     "literature_relevance",
