@@ -2,7 +2,7 @@
 
 from typing import Dict, Optional
 
-from victor_sdk.verticals import PromptContributorProtocol, TaskTypeHint
+from victor_contracts.verticals import PromptContributorProtocol, TaskTypeHint
 
 # Research-specific task type hints
 RESEARCH_TASK_TYPE_HINTS: Dict[str, TaskTypeHint] = {
@@ -135,8 +135,12 @@ Avoid: Social media posts, anonymous forums, outdated content (>2 years for fast
         Returns:
             Grounding rules text for research tasks
         """
-        return """GROUNDING: Base ALL responses on tool output only. Never fabricate sources or statistics.
-Always cite URLs for claims. Acknowledge uncertainty when sources conflict.""".strip()
+        return (
+            "GROUNDING: Base ALL responses on tool output only. Never fabricate "
+            "sources or statistics.\n"
+            "Always cite URLs for claims. Acknowledge uncertainty when sources "
+            "conflict."
+        )
 
     def get_priority(self) -> int:
         """Get priority for prompt section ordering.

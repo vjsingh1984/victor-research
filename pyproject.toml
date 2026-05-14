@@ -35,7 +35,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 dependencies = [
-    "victor-sdk[yaml]>=0.7.0,<1.0",
+    "victor-contracts[yaml]>=0.7.0,<1.0",
     "numpy>=1.24",  # Required by victor.storage.embeddings
 ]
 
@@ -83,8 +83,8 @@ research = "victor_research.capabilities:ResearchCapabilityProvider"
 [project.entry-points."victor.team_spec_providers"]
 research = "victor_research.teams:ResearchTeamSpecProvider"
 
-# NEW: Victor SDK Protocol implementations
-[project.entry-points."victor.sdk.protocols"]
+# Victor extension protocol implementations
+[project.entry-points."victor.extension.protocols"]
 research-tools = "victor_research.protocols:ResearchToolProvider"
 research-safety = "victor_research.protocols:ResearchSafetyProvider"
 research-prompts = "victor_research.protocols:ResearchPromptProvider"
