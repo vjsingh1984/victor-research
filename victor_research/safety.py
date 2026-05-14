@@ -6,7 +6,8 @@ for source credibility and content warnings, extending with research-specific pa
 
 from typing import Dict, List, Tuple
 
-from victor_sdk.verticals import SafetyExtensionProtocol, SafetyPattern
+from victor_contracts.verticals import SafetyExtensionProtocol, SafetyPattern
+from victor_sdk.safety_policy import SafetyEnforcer, SafetyRule, SafetyLevel
 
 # Import framework safety patterns (DRY principle)
 from victor_sdk.safety_patterns import (
@@ -163,8 +164,6 @@ Example:
     if not allowed:
         print(f"Blocked: {reason}")
 """
-
-from victor_sdk.safety_policy import SafetyEnforcer, SafetyRule, SafetyLevel
 
 
 def create_research_source_safety_rules(

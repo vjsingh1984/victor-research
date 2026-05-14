@@ -32,6 +32,8 @@ _CONTRACT_MODULES = [
     "victor_research/assistant.py",
     "victor_research/plugin.py",
     "victor_research/protocols.py",
+    "victor_research/prompts.py",
+    "victor_research/safety.py",
 ]
 
 _CONTRACT_IMPORTS = (
