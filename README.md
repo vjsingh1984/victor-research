@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> **This repository has moved into the Victor monorepo.**
+> `victor-research` is now developed at [vjsingh1984/victor](https://github.com/vjsingh1984/victor) under `verticals/victor-research/`.
+> This repo is archived (read-only); open issues and PRs against the monorepo.
+
 # victor-research
 
 **Research vertical for Victor AI - Web research, information gathering, and knowledge synthesis**
